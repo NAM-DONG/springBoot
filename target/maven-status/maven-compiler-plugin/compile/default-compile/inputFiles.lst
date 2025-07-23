@@ -1,0 +1,8 @@
+/workspace/src/main/java/com/example/loginform/service/CustomUserDetailsService.java
+/workspace/src/main/java/com/example/loginform/model/User.java
+/workspace/src/main/java/com/example/loginform/config/SecurityConfig.java
+/workspace/src/main/java/com/example/loginform/LoginFormApplication.java
+/workspace/src/main/java/com/example/loginform/repository/UserRepository.java
+/workspace/src/main/java/com/example/loginform/config/DataInitializer.java
+/workspace/src/main/java/com/example/loginform/service/UserService.java
+/workspace/src/main/java/com/example/loginform/controller/AuthController.java

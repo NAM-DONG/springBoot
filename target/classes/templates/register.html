@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 - Spring Boot Login</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="login-wrapper">
+            <div class="login-form">
+                <div class="login-header">
+                    <i class="fas fa-user-plus"></i>
+                    <h2>회원가입</h2>
+                    <p>새 계정을 만들어보세요</p>
+                </div>
+                
+                <!-- 에러 메시지 -->
+                <div th:if="${error}" class="alert alert-error">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span th:text="${error}"></span>
+                </div>
+                
+                <form th:action="@{/register}" th:object="${user}" method="post" class="form">
+                    <div class="form-group">
+                        <label for="username">
+                            <i class="fas fa-user"></i>
+                            사용자명
+                        </label>
+                        <input type="text" 
+                               th:field="*{username}" 
+                               id="username" 
+                               placeholder="사용자명을 입력하세요 (3-20자)" 
+                               required 
+                               minlength="3" 
+                               maxlength="20"
+                               autocomplete="username">
+                        <div th:if="${#fields.hasErrors('username')}" class="field-error">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span th:errors="*{username}"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">
+                            <i class="fas fa-envelope"></i>
+                            이메일
+                        </label>
+                        <input type="email" 
+                               th:field="*{email}" 
+                               id="email" 
+                               placeholder="이메일을 입력하세요" 
+                               required 
+                               autocomplete="email">
+                        <div th:if="${#fields.hasErrors('email')}" class="field-error">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span th:errors="*{email}"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">
+                            <i class="fas fa-lock"></i>
+                            비밀번호
+                        </label>
+                        <input type="password" 
+                               th:field="*{password}" 
+                               id="password" 
+                               placeholder="비밀번호를 입력하세요 (최소 6자)" 
+                               required 
+                               minlength="6"
+                               autocomplete="new-password">
+                        <div th:if="${#fields.hasErrors('password')}" class="field-error">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span th:errors="*{password}"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirmPassword">
+                            <i class="fas fa-lock"></i>
+                            비밀번호 확인
+                        </label>
+                        <input type="password" 
+                               id="confirmPassword" 
+                               placeholder="비밀번호를 다시 입력하세요" 
+                               required 
+                               minlength="6"
+                               autocomplete="new-password">
+                        <div id="passwordMatchError" class="field-error" style="display: none;">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span>비밀번호가 일치하지 않습니다.</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-options">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="terms" required>
+                            <span class="checkmark"></span>
+                            <a href="#" class="terms-link">이용약관</a>에 동의합니다
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" id="registerBtn">
+                        <i class="fas fa-user-plus"></i>
+                        회원가입
+                    </button>
+                </form>
+                
+                <div class="form-footer">
+                    <p>이미 계정이 있으신가요? <a th:href="@{/login}">로그인</a></p>
+                </div>
+            </div>
+            
+            <div class="login-image register-image">
+                <div class="image-content">
+                    <h3>함께 시작해요!</h3>
+                    <p>지금 가입하시고 다양한<br>기능들을 경험해보세요.</p>
+                    <div class="features">
+                        <div class="feature">
+                            <i class="fas fa-star"></i>
+                            <span>무료</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-clock"></i>
+                            <span>빠른 가입</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-heart"></i>
+                            <span>사용자 친화적</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 비밀번호 확인 검증
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        const passwordMatchError = document.getElementById('passwordMatchError');
+        const registerBtn = document.getElementById('registerBtn');
+        
+        function validatePassword() {
+            if (confirmPasswordInput.value && passwordInput.value !== confirmPasswordInput.value) {
+                passwordMatchError.style.display = 'block';
+                confirmPasswordInput.style.borderColor = '#e74c3c';
+                registerBtn.disabled = true;
+            } else {
+                passwordMatchError.style.display = 'none';
+                confirmPasswordInput.style.borderColor = '#ddd';
+                registerBtn.disabled = false;
+            }
+        }
+        
+        passwordInput.addEventListener('input', validatePassword);
+        confirmPasswordInput.addEventListener('input', validatePassword);
+    </script>
+</body>
+</html>
