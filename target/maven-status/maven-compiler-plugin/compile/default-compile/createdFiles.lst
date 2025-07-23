@@ -1,0 +1,8 @@
+com/example/loginform/model/User.class
+com/example/loginform/LoginFormApplication.class
+com/example/loginform/config/DataInitializer.class
+com/example/loginform/repository/UserRepository.class
+com/example/loginform/config/SecurityConfig.class
+com/example/loginform/service/CustomUserDetailsService.class
+com/example/loginform/service/UserService.class
+com/example/loginform/controller/AuthController.class
